@@ -1,0 +1,69 @@
+body {
+	background: #afb0b9;
+	display: flex;
+	overflow-x: hidden;
+	font-family: "Roboto", sans-serif;
+	font-weight: 400;
+	font-size: 16px;
+	font-size: 1em;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	line-height: 1.45;
+}
+
+input {
+	outline: none;
+	font-size: 1rem;
+	padding: 0 5px;
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	border-bottom: 1px solid lightgrey;
+	overflow-y: scroll;
+}
+
+li {
+	padding: 10px 10px 10px 10px;
+	margin: 8px;
+	width: fit-content;
+	background-color: aqua;
+	border-radius: 10px;
+}
+
+canvas {
+	display: block;
+	margin: 10px auto;
+}
+
+.controls-wrapper {
+	background-color: rgb(255, 255, 255);
+	width: 400px;
+	margin: 20px auto;
+	border: 1px solid lightgrey;
+}
+
+.chat-wrapper {
+	padding: 10px;
+}
+
+.chat-wrapper form {
+	display: flex;
+}
+
+.chat-wrapper form input {
+	font-size: 1rem;
+	margin: 0 10px 0 0;
+	padding: 0 5px;
+	flex-grow: 1;
+}
+
+.chat-wrapper form button {
+	width: 80px;
+}
+
+#events {
+	height: 150px;
+}
