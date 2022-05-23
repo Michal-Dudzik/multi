@@ -1,4 +1,5 @@
 const log = (text) => {
+	//log to console
 	const parent = document.querySelector("#events");
 	const el = document.createElement("li");
 	el.innerHTML = text;
@@ -8,6 +9,7 @@ const log = (text) => {
 };
 
 const onChatSubmitted = (socket) => (e) => {
+	//send message to server
 	e.preventDefault();
 
 	const input = document.querySelector("#chat");
@@ -18,6 +20,7 @@ const onChatSubmitted = (socket) => (e) => {
 };
 
 const getClickedPosition = (element, event) => {
+	//get position of clicked cell
 	const rect = element.getBoundingClientRect();
 	const x = event.clientX - rect.left;
 	const y = event.clientY - rect.top;
@@ -26,6 +29,8 @@ const getClickedPosition = (element, event) => {
 };
 
 const getBoard = (canvas, numCells = 15) => {
+	//create board
+
 	const ctx = canvas.getContext("2d");
 	const cellSize = Math.floor(canvas.width / numCells);
 
@@ -33,9 +38,6 @@ const getBoard = (canvas, numCells = 15) => {
 		ctx.fillStyle = color;
 		ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
 	};
-
-	// ctx.fillStyle = "white";
-	// ctx.fillRect(0, 0, width, height);
 
 	const drawGrid = () => {
 		ctx.beginPath();
@@ -50,13 +52,15 @@ const getBoard = (canvas, numCells = 15) => {
 	};
 
 	const clear = () => {
+		//clear board
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 	};
 
-	const renderBoard = (board) => {
+	const renderBoard = (board = []) => {
+		//render board
 		board.forEach((row, y) => {
-			row.forEach((x) => {
-				fillCell(x, y);
+			row.forEach((color, x) => {
+				color && fillCell(x, y, color);
 			});
 		});
 	};
@@ -68,6 +72,7 @@ const getBoard = (canvas, numCells = 15) => {
 	};
 
 	const getCellPosition = (x, y) => {
+		//get position of cell
 		return {
 			x: Math.floor(x / cellSize),
 			y: Math.floor(y / cellSize),
@@ -77,23 +82,41 @@ const getBoard = (canvas, numCells = 15) => {
 	return { fillCell, reset, getCellPosition };
 };
 
+const joinGame = () => {
+	//do poprawy idk czy działa
+	const code = document.getElementById("roomName").value; //get code from input
+	socket.emit("join", code); //send code to server
+	reset(code);
+};
+
 (() => {
-	const canvas = document.querySelector("canvas");
-	const { fillCell, reset, getCellPosition } = getBoard(canvas);
-	const socket = io();
+	// const canvas = document.querySelector("canvas"); //get canvas
+	const canvas = document.getElementById("gameScreen"); //get canvas
+	const bench = document.getElementById("bench"); //get bench TODO: add bench with generated letter for players
+	const scoreBoard = document.getElementById("scoreBoard"); //get score board TODO: add score board with current score and history of words
+	const newGameButton = document.getElementById("newGame"); //get new game button
+	const joinGameButton = document.getElementById("joinGame"); //get join game button
+	const roomName = document.getElementById("roomName"); //get room input
+
+	const { fillCell, reset, getCellPosition } = getBoard(canvas); //create board
+	const socket = io(); //connect to server
 
 	const onClick = (socket) => (e) => {
+		//send turn to server
 		const { x, y } = getClickedPosition(canvas, e);
 		socket.emit("turn", getCellPosition(x, y));
 	};
 
-	socket.on("board", reset);
+	socket.on("board", reset); //kiedy modal i przyciski bedą działać to to wywal
 	socket.on("message", log);
-	socket.on("turn", ({ x, y }) => fillCell(x, y, "blue"));
+	socket.on("turn", ({ x, y, color }) => fillCell(x, y, color));
 
-	document
+	document //add event listeners in document
 		.querySelector("#chat-form")
 		.addEventListener("submit", onChatSubmitted(socket));
+
+	// newGameButton.addEventListener("click", reset); //start new game, popraw bo to tylko przekopiowane
+	// joinGameButton.addEventListener("click", joingame); //join existing game, popraw bo to tylko przekopiowane
 
 	canvas.addEventListener("click", onClick(socket));
 })();
