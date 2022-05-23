@@ -53,9 +53,18 @@ const getBoard = (canvas, numCells = 15) => {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 	};
 
-	const reset = () => {
+	const renderBoard = (board) => {
+		board.forEach((row, y) => {
+			row.forEach((x) => {
+				fillCell(x, y);
+			});
+		});
+	};
+
+	const reset = (board) => {
 		clear();
 		drawGrid();
+		renderBoard(board);
 	};
 
 	const getCellPosition = (x, y) => {
@@ -78,8 +87,7 @@ const getBoard = (canvas, numCells = 15) => {
 		socket.emit("turn", getCellPosition(x, y));
 	};
 
-	reset();
-
+	socket.on("board", reset);
 	socket.on("message", log);
 	socket.on("turn", ({ x, y }) => fillCell(x, y, "blue"));
 
