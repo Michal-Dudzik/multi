@@ -82,6 +82,60 @@ const getBoard = (canvas, numCells = 15) => {
 	return { fillCell, reset, getCellPosition };
 };
 
+// const getBench = (canvas, numCells = 7) => {
+// 	//create board
+
+// 	const ctx = canvas.getContext("2d");
+// 	const cellSize = Math.floor(canvas.width / numCells);
+
+// 	// const fillCell = (x, y, color) => {
+// 	// 	ctx.fillStyle = color;
+// 	// 	ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+// 	// };
+
+// 	const drawGrid = () => {
+// 		ctx.beginPath();
+// 		for (let i = 0; i < numCells + 1; i++) {
+// 			ctx.moveTo(i * cellSize, 0);
+// 			ctx.lineTo(i * cellSize, cellSize * numCells);
+// 			ctx.moveTo(0, i * cellSize);
+// 			ctx.lineTo(cellSize * numCells, i * cellSize);
+// 		}
+
+// 		ctx.stroke();
+// 	};
+
+// 	const clear = () => {
+// 		//clear board
+// 		ctx.clearRect(0, 0, canvas.width, canvas.height);
+// 	};
+
+// 	const renderBench = (board = []) => {
+// 		//render board
+// 		board.forEach((row, y) => {
+// 			row.forEach((color, x) => {
+// 				color && fillCell(x, y, color);
+// 			});
+// 		});
+// 	};
+
+// 	const resetBench = (board) => {
+// 		clear();
+// 		drawGrid();
+// 		renderBench(board);
+// 	};
+
+// 	const getCellPosition = (x, y) => {
+// 		//get position of cell
+// 		return {
+// 			x: Math.floor(x / cellSize),
+// 			y: Math.floor(y / cellSize),
+// 		};
+// 	};
+
+// 	return { fillCell, resetBench, getCellPosition };
+// };
+
 const joinGame = () => {
 	//do poprawy idk czy działa
 	const code = document.getElementById("roomName").value; //get code from input
@@ -108,6 +162,7 @@ const joinGame = () => {
 	};
 
 	socket.on("board", reset); //kiedy modal i przyciski bedą działać to to wywal
+	// socket.on("bench", resetBench); //kiedy modal i przyciski bedą działać to to wywal
 	socket.on("message", log);
 	socket.on("turn", ({ x, y, color }) => fillCell(x, y, color));
 
