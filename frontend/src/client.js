@@ -33,60 +33,6 @@ const onChatSubmitted = (socket) => (e) => {
 	socket.emit("message", text);
 };
 
-const getBoard = (canvas, numCells = 15) => {
-	//create board
-
-	const ctx = canvas.getContext("2d");
-	const cellSize = Math.floor(canvas.width / numCells);
-
-	const fillCell = (x, y, color) => {
-		ctx.fillStyle = color;
-		ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
-	};
-
-	const drawGrid = () => {
-		ctx.beginPath();
-		for (let i = 0; i < numCells + 1; i++) {
-			ctx.moveTo(i * cellSize, 0);
-			ctx.lineTo(i * cellSize, cellSize * numCells);
-			ctx.moveTo(0, i * cellSize);
-			ctx.lineTo(cellSize * numCells, i * cellSize);
-		}
-
-		// ctx.stroke();
-	};
-
-	const clear = () => {
-		//clear board
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
-	};
-
-	const renderBoard = (board = []) => {
-		//render board
-		board.forEach((row, y) => {
-			row.forEach((color, x) => {
-				color && fillCell(x, y, color);
-			});
-		});
-	};
-
-	const reset = (board) => {
-		clear();
-		drawGrid();
-		renderBoard(board);
-	};
-
-	const getCellPosition = (x, y) => {
-		//get position of cell
-		return {
-			x: Math.floor(x / cellSize),
-			y: Math.floor(y / cellSize),
-		};
-	};
-
-	return { fillCell, reset, getCellPosition };
-};
-
 const getClickedPosition = (element, event) => {
 	//get position of clicked cell
 	const rect = element.getBoundingClientRect();
@@ -110,27 +56,12 @@ const joinGame = () => {
 	const scoreBoard = document.getElementById("scoreBoard"); //get score board TODO: add score board with current score and history of words
 	const newGameButton = document.getElementById("newGame"); //get new game button
 	const joinGameButton = document.getElementById("joinGame"); //get join game button
-	const joinRandomGameButton = document.getElementById("joinRandomGame"); //get join random game button
 	const roomName = document.getElementById("roomName"); //get room input
 	const playerName = document.getElementById("playerName"); //get player name input
 	const acceptWord = document.getElementById("acceptWord"); //get accept word button
 	const skip = document.getElementById("skip"); //get skip button
 
 	const { fillCell, reset, getCellPosition } = getBoard(gameScreen); //create board
-
-	// TEST //
-	const ctxBench = bench.getContext("2d");
-	const cellSizeBench = Math.floor(bench.width / 7);
-	ctxBench.beginPath();
-	for (let i = 0; i < 7 + 1; i++) {
-		// ctxBench.drawImage();
-		ctxBench.moveTo(i * cellSizeBench, 0);
-		ctxBench.lineTo(i * cellSizeBench, cellSizeBench * 7);
-		ctxBench.moveTo(0, i * cellSizeBench);
-		ctxBench.lineTo(cellSizeBench * 7, i * cellSizeBench);
-	}
-	ctxBench.stroke();
-	// KONIEC TESTU //
 
 	const socket = io(); //connect to server
 
@@ -139,7 +70,7 @@ const joinGame = () => {
 		const { x, y } = getClickedPosition(gameScreen, e);
 		socket.emit("turn", getCellPosition(x, y));
 	};
-
+	socket.on("joinroom")
 	socket.on("board", reset); //kiedy modal i przyciski bedą działać to to wywal
 	// socket.on("bench", resetBench); //kiedy modal i przyciski bedą działać to to wywal
 	socket.on("message", log);
