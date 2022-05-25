@@ -1,3 +1,17 @@
+//show initial screen modal
+var initialScreen = new bootstrap.Modal(
+	document.getElementById("initialScreen"),
+	{}
+);
+initialScreen.toggle();
+
+// open help modal
+var helpModal = new bootstrap.Modal(document.getElementById("helpModal"), {});
+var helpbtn = document.getElementById("help");
+helpbtn.addEventListener("click", () => {
+	helpModal.toggle();
+});
+
 const log = (text) => {
 	//log to console
 	const parent = document.querySelector("#events");
@@ -28,114 +42,6 @@ const getClickedPosition = (element, event) => {
 	return { x, y };
 };
 
-const getBoard = (canvas, numCells = 15) => {
-	//create board
-
-	const ctx = canvas.getContext("2d");
-	const cellSize = Math.floor(canvas.width / numCells);
-
-	const fillCell = (x, y, color) => {
-		ctx.fillStyle = color;
-		ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
-	};
-
-	const drawGrid = () => {
-		ctx.beginPath();
-		for (let i = 0; i < numCells + 1; i++) {
-			ctx.moveTo(i * cellSize, 0);
-			ctx.lineTo(i * cellSize, cellSize * numCells);
-			ctx.moveTo(0, i * cellSize);
-			ctx.lineTo(cellSize * numCells, i * cellSize);
-		}
-
-		ctx.stroke();
-	};
-
-	const clear = () => {
-		//clear board
-		ctx.clearRect(0, 0, canvas.width, canvas.height);
-	};
-
-	const renderBoard = (board = []) => {
-		//render board
-		board.forEach((row, y) => {
-			row.forEach((color, x) => {
-				color && fillCell(x, y, color);
-			});
-		});
-	};
-
-	const reset = (board) => {
-		clear();
-		drawGrid();
-		renderBoard(board);
-	};
-
-	const getCellPosition = (x, y) => {
-		//get position of cell
-		return {
-			x: Math.floor(x / cellSize),
-			y: Math.floor(y / cellSize),
-		};
-	};
-
-	return { fillCell, reset, getCellPosition };
-};
-
-// const getBench = (canvas, numCells = 7) => {
-// 	//create board
-
-// 	const ctx = canvas.getContext("2d");
-// 	const cellSize = Math.floor(canvas.width / numCells);
-
-// 	// const fillCell = (x, y, color) => {
-// 	// 	ctx.fillStyle = color;
-// 	// 	ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
-// 	// };
-
-// 	const drawGrid = () => {
-// 		ctx.beginPath();
-// 		for (let i = 0; i < numCells + 1; i++) {
-// 			ctx.moveTo(i * cellSize, 0);
-// 			ctx.lineTo(i * cellSize, cellSize * numCells);
-// 			ctx.moveTo(0, i * cellSize);
-// 			ctx.lineTo(cellSize * numCells, i * cellSize);
-// 		}
-
-// 		ctx.stroke();
-// 	};
-
-// 	const clear = () => {
-// 		//clear board
-// 		ctx.clearRect(0, 0, canvas.width, canvas.height);
-// 	};
-
-// 	const renderBench = (board = []) => {
-// 		//render board
-// 		board.forEach((row, y) => {
-// 			row.forEach((color, x) => {
-// 				color && fillCell(x, y, color);
-// 			});
-// 		});
-// 	};
-
-// 	const resetBench = (board) => {
-// 		clear();
-// 		drawGrid();
-// 		renderBench(board);
-// 	};
-
-// 	const getCellPosition = (x, y) => {
-// 		//get position of cell
-// 		return {
-// 			x: Math.floor(x / cellSize),
-// 			y: Math.floor(y / cellSize),
-// 		};
-// 	};
-
-// 	return { fillCell, resetBench, getCellPosition };
-// };
-
 const joinGame = () => {
 	//do poprawy idk czy działa
 	const code = document.getElementById("roomName").value; //get code from input
@@ -144,20 +50,24 @@ const joinGame = () => {
 };
 
 (() => {
-	// const canvas = document.querySelector("canvas"); //get canvas
-	const canvas = document.getElementById("gameScreen"); //get canvas
+	// const gameScreen = document.querySelector("gameScreen"); //get gameScreen
+	const gameScreen = document.getElementById("gameScreen"); //get gameScreen
 	const bench = document.getElementById("bench"); //get bench TODO: add bench with generated letter for players
 	const scoreBoard = document.getElementById("scoreBoard"); //get score board TODO: add score board with current score and history of words
 	const newGameButton = document.getElementById("newGame"); //get new game button
 	const joinGameButton = document.getElementById("joinGame"); //get join game button
 	const roomName = document.getElementById("roomName"); //get room input
+	const playerName = document.getElementById("playerName"); //get player name input
+	const acceptWord = document.getElementById("acceptWord"); //get accept word button
+	const skip = document.getElementById("skip"); //get skip button
 
-	const { fillCell, reset, getCellPosition } = getBoard(canvas); //create board
+	const { fillCell, reset, getCellPosition } = getBoard(gameScreen); //create board
+
 	const socket = io(); //connect to server
 
 	const onClick = (socket) => (e) => {
 		//send turn to server
-		const { x, y } = getClickedPosition(canvas, e);
+		const { x, y } = getClickedPosition(gameScreen, e);
 		socket.emit("turn", getCellPosition(x, y));
 	};
 
@@ -172,6 +82,5 @@ const joinGame = () => {
 
 	// newGameButton.addEventListener("click", reset); //start new game, popraw bo to tylko przekopiowane
 	// joinGameButton.addEventListener("click", joingame); //join existing game, popraw bo to tylko przekopiowane
-
-	canvas.addEventListener("click", onClick(socket));
+	gameScreen.addEventListener("click", onClick(socket));
 })();

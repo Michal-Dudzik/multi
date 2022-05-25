@@ -12,7 +12,6 @@ app.use(express.static("./frontend")); //connection to frontend side
 const server = http.createServer(app);
 const io = socketio(server);
 const { clear, getBoard, makeTurn } = createBoard(15); //create board with 15x15 cells
-// const { clear, getBench, makeTurn } = createBoard(7);
 
 io.on("connection", (socket) => {
 	// client.on('click', handleNewGame);//jeszcze nie działa
@@ -22,7 +21,6 @@ io.on("connection", (socket) => {
 	const color = randomColor(); //generate random color for player
 
 	socket.emit("board", getBoard()); //send board to client
-	// socket.emit("bench", getBench()); //send bench to client
 
 	socket.on("message", (text) => io.emit("message", text)); //receive message from client and send it to all clients
 
