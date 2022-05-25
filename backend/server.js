@@ -25,7 +25,7 @@ io.on("createnewgame", (socket) =>
 	socket.join(roomID);
 	console.log("New player:" + clientNo + ", joined room: " + roomID);
 	serverplayers[socket.id] = new Player(socket.id); //adding player to list of players
-	serverboards[roomID] = new Board(roomNo); //creating new board
+	serverboards[roomID] = new Board(roomID); //creating new board
 	serverboards[roomID].player1 = serverplayers[socket.id]; //adding player to board
 	
 })
@@ -37,7 +37,7 @@ io.on("joinroom", (socket) => {
 	roomID = data;
 	socket.join(roomID); //()
 	serverplayers[socket.id] = new Player(socket.id); //adding player to list of players
-    serverboards[roomNo].player2 = serverplayers[socket.id]; //adding player to board
+    serverboards[roomID].player2 = serverplayers[socket.id]; //adding player to board
 	console.log("New player:" + clientNo + ", joined room: " + roomID);
 	serverboards[roomID].startgame();
 	serverboards[roomID].player1.printplayershand(); //prints players hand (just for test)
@@ -49,8 +49,8 @@ io.on("joinroom", (socket) => {
 // io.on("joinrandomroom", (socket) => { //może kiedyś
 // 	//szukaj pokoju ktory ma tylko 
 // 	serverplayers[socket.id] = new Player(socket.id); //adding player to list of players
-//     serverboards[roomNo].player2 = serverplayers[socket.id]; //adding player to board
-//     console.log("Player: " + socket.id + " was asigned to board and his nick is: " + serverboards[roomNo].player2.nickname);
+//     serverboards[roomID].player2 = serverplayers[socket.id]; //adding player to board
+//     console.log("Player: " + socket.id + " was asigned to board and his nick is: " + serverboards[roomID].player2.nickname);
 // })
 
 io.on("connection", (socket) => {

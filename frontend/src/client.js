@@ -33,14 +33,12 @@ const onChatSubmitted = (socket) => (e) => {
 	socket.emit("message", text);
 };
 
-
 (() => {
 	const gameScreen = document.getElementById("gameScreen"); //get gameScreen
 	const bench = document.getElementById("bench"); //get bench TODO: add bench with generated letter for players
 	const scoreBoard = document.getElementById("scoreBoard"); //get score board TODO: add score board with current score and history of words
 	const newGameButton = document.getElementById("newGame"); //get new game button
 	const joinGameButton = document.getElementById("joinGame"); //get join game button
-	const joinRandomGameButton = document.getElementById("joinRandomGame"); //get join random game button
 	const roomName = document.getElementById("roomName"); //get room input
 	const playerName = document.getElementById("playerName"); //get player name input
 	const acceptWord = document.getElementById("acceptWord"); //get accept word button
@@ -55,7 +53,7 @@ const onChatSubmitted = (socket) => (e) => {
 		const { x, y } = getClickedPosition(gameScreen, e);
 		socket.emit("turn", getCellPosition(x, y));
 	};
-
+	socket.on("joinroom")
 	socket.on("board", reset); //kiedy modal i przyciski bedą działać to to wywal
 	// socket.on("bench", resetBench); //kiedy modal i przyciski bedą działać to to wywal
 	socket.on("message", log);
