@@ -33,24 +33,7 @@ const onChatSubmitted = (socket) => (e) => {
 	socket.emit("message", text);
 };
 
-const getClickedPosition = (element, event) => {
-	//get position of clicked cell
-	const rect = element.getBoundingClientRect();
-	const x = event.clientX - rect.left;
-	const y = event.clientY - rect.top;
-
-	return { x, y };
-};
-
-const joinGame = () => {
-	//do poprawy idk czy działa
-	const code = document.getElementById("roomName").value; //get code from input
-	socket.emit("join", code); //send code to server
-	reset(code);
-};
-
 (() => {
-	// const gameScreen = document.querySelector("gameScreen"); //get gameScreen
 	const gameScreen = document.getElementById("gameScreen"); //get gameScreen
 	const bench = document.getElementById("bench"); //get bench TODO: add bench with generated letter for players
 	const scoreBoard = document.getElementById("scoreBoard"); //get score board TODO: add score board with current score and history of words
