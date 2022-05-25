@@ -49,6 +49,7 @@
 					</div>
 
 					<div class="mid_section">
+						<!-- <h2>Room <span id="curentRoom">XXXX</span></h2> -->
 						<h1>3 - 2</h1>
 					</div>
 					<div class="right_section">
@@ -78,7 +79,7 @@
 
 				<button id="skip" class="btn btn-warning">Skip</button>
 
-				<canvas id="bench" height="50" width="400"></canvas>
+				<canvas id="bench" height="50" width="350"></canvas>
 
 				<button id="acceptWord" class="btn btn-success">Play</button>
 
@@ -134,7 +135,10 @@
 							<button id="joinGame" type="submit" class="btn btn-primary">
 								Join
 							</button>
-							<button id="newGame" type="submit" class="btn btn-success">
+							<button id="joinRandomGame" type="submit" class="btn btn-primary">
+								Join random
+							</button>
+							<button id="newGame" type="submit" class="btn btn-primary">
 								Create new game
 							</button>
 						</div>
@@ -194,7 +198,6 @@
 		</div>
 
 		<!-- BLACK BAGIC -->
-		<script type="text/javascript" defer src="backend/chat.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="src/client.js"></script>
 	</body>

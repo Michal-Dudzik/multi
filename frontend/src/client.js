@@ -110,12 +110,27 @@ const joinGame = () => {
 	const scoreBoard = document.getElementById("scoreBoard"); //get score board TODO: add score board with current score and history of words
 	const newGameButton = document.getElementById("newGame"); //get new game button
 	const joinGameButton = document.getElementById("joinGame"); //get join game button
+	const joinRandomGameButton = document.getElementById("joinRandomGame"); //get join random game button
 	const roomName = document.getElementById("roomName"); //get room input
 	const playerName = document.getElementById("playerName"); //get player name input
 	const acceptWord = document.getElementById("acceptWord"); //get accept word button
 	const skip = document.getElementById("skip"); //get skip button
 
 	const { fillCell, reset, getCellPosition } = getBoard(gameScreen); //create board
+
+	// TEST //
+	const ctxBench = bench.getContext("2d");
+	const cellSizeBench = Math.floor(bench.width / 7);
+	ctxBench.beginPath();
+	for (let i = 0; i < 7 + 1; i++) {
+		// ctxBench.drawImage();
+		ctxBench.moveTo(i * cellSizeBench, 0);
+		ctxBench.lineTo(i * cellSizeBench, cellSizeBench * 7);
+		ctxBench.moveTo(0, i * cellSizeBench);
+		ctxBench.lineTo(cellSizeBench * 7, i * cellSizeBench);
+	}
+	ctxBench.stroke();
+	// KONIEC TESTU //
 
 	const socket = io(); //connect to server
 
