@@ -62,30 +62,312 @@
 		</div>
 
 		<div id="game" class="d-flex flex-column h-100">
-			<canvas
-				id="gameScreen"
-				height="750"
-				width="750"
-				style="
-					background-image: url('media/tablica.PNG');
-					background-position: center;
-					background-size: contain;
-				"
-			></canvas>
-			<div id="underBoard">
-				<button id="goBack" class="btn btn-info">
-					<i class="fa-solid fa-arrow-down"></i>
-				</button>
+			<div id="board" class="noselect">
+				<div class="board">
+	
+					<!-- Row 1 -->
+					<div class="grid-square dropzone triple-word "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone triple-word "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone triple-word "></div>
+				  
+					<!-- Row 2 -->
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-word "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone triple-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone triple-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-word "></div>
+					<div class="grid-square dropzone"></div>
+				  
+					<!-- Row 3 -->
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-word "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-word "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+				  
+					<!-- Row 4 -->
+					<div class="grid-square dropzone double-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-word "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-word "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-letter "></div>
+				  
+					<!-- Row 5 -->
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-word "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-word "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+				  
+					<!-- Row 6 -->
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone triple-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone triple-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone triple-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone triple-letter "></div>
+					<div class="grid-square dropzone"></div>
+				  
+					<!-- Row 7 -->
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+				  
+					<!-- Row 8 -->
+					<div class="grid-square dropzone triple-word "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone star-square ">
 
-				<button id="skip" class="btn btn-warning">Skip</button>
+					</div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone triple-word "></div>
+				  
+					<!-- Row 9 -->
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+				  
+					<!-- Row 10 -->
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone triple-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone triple-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone triple-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone triple-letter "></div>
+					<div class="grid-square dropzone"></div>
+				  
+					<!-- Row 11 -->
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-word "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-word "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+				  
+					<!-- Row 12 -->
+					<div class="grid-square dropzone double-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-word "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-word "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-letter "></div>
+				  
+					<!-- Row 13 -->
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-word "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-word "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+				  
+					<!-- Row 14 -->
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-word "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone triple-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone triple-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-word "></div>
+					<div class="grid-square dropzone"></div>
+				  
+					<!-- Row 15 -->
+					<div class="grid-square dropzone triple-word "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone triple-word "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone double-letter "></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone"></div>
+					<div class="grid-square dropzone triple-word"></div>
+				  </div>
+	
+				  <div id="underBoard">
+	
+					<button id="goBack" class="btn btn-info">
+						<i class="fa-solid fa-arrow-down"></i>
+					</button>
+	
+					<button id="skip" class="btn btn-warning">Skip</button>
 
-				<canvas id="bench" height="50" width="350"></canvas>
+					  <div class="stand-background dropzone">
+						<div class="tile" id="tail_1" draggable="true">
+							<div class="letter">S</div>
+							<div class="letter-weight ">2</div>
+						</div>
+						<div class="tile" id="tail_2" draggable="true">
+							<div class="letter">C</div>
+							<div class="letter-weight ">2</div>
+						</div>
+						<div class="tile" id="tail_3" draggable="true">
+							<div class="letter">R</div>
+							<div class="letter-weight ">2</div>
+						</div>
+						<div class="tile" id="tail_4" draggable="true">
+							<div class="letter">A</div>
+							<div class="letter-weight ">2</div>
+						</div>
+						<div class="tile" id="tail_5" draggable="true">
+							<div class="letter">B</div>
+							<div class="letter-weight ">2</div>
+						</div>
+						<div class="tile" id="tail_6" draggable="true">
+							<div class="letter">B</div>
+							<div class="letter-weight ">2</div>
+						</div>
+						<div class="tile" id="tail_7" draggable="true">
+							<div class="letter">L</div>
+							<div class="letter-weight ">2</div>
+						</div>
+					  </div>
 
-				<button id="acceptWord" class="btn btn-success">Play</button>
+					  <button id="acceptWord" class="btn btn-success">Play</button>
 
-				<button id="swap" class="btn btn-info">
-					<i class="fa-solid fa-shuffle"></i>
-				</button>
+					  <button id="swap" class="btn btn-info">
+						<i class="fa-solid fa-shuffle"></i>
+					  </button>
+				  </div>
 			</div>
 		</div>
 
@@ -198,6 +480,7 @@
 		</div>
 
 		<!-- BLACK BAGIC -->
+		<script defer src="dragnDrop.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="src/client.js"></script>
 	</body>
