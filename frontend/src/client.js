@@ -118,20 +118,6 @@ const joinGame = () => {
 
 	const { fillCell, reset, getCellPosition } = getBoard(gameScreen); //create board
 
-	// TEST //
-	const ctxBench = bench.getContext("2d");
-	const cellSizeBench = Math.floor(bench.width / 7);
-	ctxBench.beginPath();
-	for (let i = 0; i < 7 + 1; i++) {
-		// ctxBench.drawImage();
-		ctxBench.moveTo(i * cellSizeBench, 0);
-		ctxBench.lineTo(i * cellSizeBench, cellSizeBench * 7);
-		ctxBench.moveTo(0, i * cellSizeBench);
-		ctxBench.lineTo(cellSizeBench * 7, i * cellSizeBench);
-	}
-	ctxBench.stroke();
-	// KONIEC TESTU //
-
 	const socket = io(); //connect to server
 
 	const onClick = (socket) => (e) => {

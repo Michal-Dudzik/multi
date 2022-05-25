@@ -35,6 +35,10 @@ io.on("connection", (socket) => {
 			io.emit("board");
 		}
 	});
+
+	socket.on("disconnect", () => {
+		io.emit("message", "Player disconnected");
+	});
 });
 
 server.on("error", (err) => {
