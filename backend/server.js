@@ -1,7 +1,6 @@
 const http = require("http");
 const express = require("express");
 const socketio = require("socket.io");
-const randomColor = require("randomcolor");
 const createBoard = require("./getBoard");
 const handleNewGame = require("./handleNewGame");
 
@@ -11,15 +10,25 @@ app.use(express.static("./frontend")); //connection to frontend side
 
 const server = http.createServer(app);
 const io = socketio(server);
-const { clear, getBoard, makeTurn } = createBoard(15); //create board with 15x15 cells
+//const { clear, getBoard, makeTurn } = createBoard(15); //create board with 15x15 cells
 
 var clientNo = 0;
 var roomID;
 var serverplayers = [];
 var serverboards = [];
 
+//////////////TO DO//////////////////
+// Loop któy sprawdza co turę czy są jeszcze kostki dostępne aka czy gra sie jeszcze nie skonczyla
+// loop który zmienia tury graczy i wysła odświeżony board
+// przycisk zakonczenia tory ktory konczy ture i rozpoczyna ture drugiego gracza
+// przycisk zakonczenia gry ktory podsumowuje punkty graczy
+// zamykanie pokoju x minut po wyjściu hosta 
+// 
+
+
 io.on("createnewgame", (socket) => 
 {
+	//if room exists connect player to room not create new one
 	roomID = socket.id;
 	console.log("Room: " + roomID + " was created");
 	socket.join(roomID);
@@ -43,7 +52,8 @@ io.on("joinroom", (socket) => {
 	serverboards[roomID].player1.printplayershand(); //prints players hand (just for test)
     serverboards[roomID].player2.printplayershand(); //prints players hand (just for test)
     serverboards[roomID].howmanytilesinstorage(); //prints how many tiles are left in storage	
-
+		//TO DO wysłać board każdemu graczowi
+	socket.emit("board", serverboards[roomID]); //send board to client dunno if it works
     });
 })
 // io.on("joinrandomroom", (socket) => { //może kiedyś
@@ -61,18 +71,18 @@ io.on("connection", (socket) => {
 	//socket.emit("board", getBoard()); //send board to client
 
 	//socket.on("message", (text) => io.emit("message", text)); //receive message from client and send it to all clients
+    
+	// socket.on("turn", ({ x, y }) => {
+	// 	const playerWon = makeTurn(x, y, color); //make turn on board
+	// 	io.emit("turn", { x, y, color }); //send turn to all clients
 
-	socket.on("turn", ({ x, y }) => {
-		const playerWon = makeTurn(x, y, color); //make turn on board
-		io.emit("turn", { x, y, color }); //send turn to all clients
-
-		if (playerWon) {
-			io.emit("message", `${color} player won!`);
-			io.emit("message", "New Round");
-			clear();
-			io.emit("board");
-		}
-	});
+	// 	if (playerWon) {
+	// 		io.emit("message", `${color} player won!`);
+	// 		io.emit("message", "New Round");
+	// 		clear();
+	// 		io.emit("board");
+	// 	}
+	// });
 
 });
 
