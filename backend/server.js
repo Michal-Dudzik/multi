@@ -82,6 +82,7 @@ io.on("connection", (socket) => {
 			serverboards[roomID].player1.printplayershand(); //prints players hand (just for test)
 			serverboards[roomID].player2.printplayershand(); //prints players hand (just for test)
 			serverboards[roomID].howmanytilesinstorage(); //prints how many tiles are left in storage
+			
 		
 	});
 });
