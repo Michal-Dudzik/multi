@@ -167,7 +167,8 @@ li {
 
 #underBoard {
 	display: flex;
-	align-content: stretch;
+	/* align-content: stretch; */
+	justify-content: space-evenly;
 	align-items: center;
 }
 
@@ -185,12 +186,12 @@ li {
 	width: 100%;
 }
 
-
 /* BOARD */
 
 .board {
 	max-width: 800px;
 	margin: auto;
+	margin-top: 10px;
 	border-radius: 3px;
 	border-left: 5px solid #aaa;
 	border-bottom: 5px solid #656565;
@@ -259,15 +260,11 @@ li {
 	display: flex;
 	font-size: 1.5em;
 	font-weight: 700;
-	width: 100%;
-	margin-top: 10px;
-	justify-content: center;
-	border-radius: 8px;
 }
 
 .stand-background {
 	display: flex;
-	gap: 5px;
+	gap: 2px;
 	padding: 5px;
 	justify-content: center;
 	align-items: center;
@@ -290,6 +287,7 @@ li {
 	border-left: 3px solid rgb(207, 174, 123);
 	border-right: 3px solid #887a61;
 	border-bottom: 3px solid #887a61;
+	cursor: move;
 }
 
 .letter-weight {
