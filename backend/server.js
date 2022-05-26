@@ -27,22 +27,22 @@ var serverboards = [];
 // 	serverboards[roomID].player1 = serverplayers[socket.id]; //adding player to board
 // });
 
-io.on("joinroom", (socket) => {
-	// listen for incoming data msg on this newly connected socket
-	socket.on("data", function (data) {
-		//wysyłąnie/odbieranie jsona
-		console.log(`data received is '${data}'`);
-		roomID = data;
-		socket.join(roomID); //()
-		serverplayers[socket.id] = new Player(socket.id); //adding player to list of players
-		serverboards[roomID].player2 = serverplayers[socket.id]; //adding player to board
-		console.log("New player:" + clientNo + ", joined room: " + roomID);
-		serverboards[roomID].startgame();
-		serverboards[roomID].player1.printplayershand(); //prints players hand (just for test)
-		serverboards[roomID].player2.printplayershand(); //prints players hand (just for test)
-		serverboards[roomID].howmanytilesinstorage(); //prints how many tiles are left in storage
-	});
-});
+// io.on("joinroom", (socket) => {
+// 	// listen for incoming data msg on this newly connected socket
+// 	socket.on("data", function (data) {
+// 		//wysyłąnie/odbieranie jsona
+// 		console.log(`data received is '${data}'`);
+// 		roomID = data;
+// 		socket.join(roomID); //()
+// 		serverplayers[socket.id] = new Player(socket.id); //adding player to list of players
+// 		serverboards[roomID].player2 = serverplayers[socket.id]; //adding player to board
+// 		console.log("New player:" + clientNo + ", joined room: " + roomID);
+// 		serverboards[roomID].startgame();
+// 		serverboards[roomID].player1.printplayershand(); //prints players hand (just for test)
+// 		serverboards[roomID].player2.printplayershand(); //prints players hand (just for test)
+// 		serverboards[roomID].howmanytilesinstorage(); //prints how many tiles are left in storage
+// 	});
+// });
 
 // io.on("joinrandomroom", (socket) => { //może kiedyś
 // 	//szukaj pokoju ktory ma tylko
@@ -52,19 +52,38 @@ io.on("joinroom", (socket) => {
 // })
 
 io.on("connection", (socket) => {
+	socc = socket
 	socket.emit("message", "Welcome to the game!"); //on connection to server send message to client
 	playerid = socket.id;
 	console.log("New player:" + socket.id + ", connected to server");	
 	socket.on("message", (text) => io.emit("message", text)); //receive message from client and send it to all clients
-	// socket.on("newroom", function(socket) {
-	// 	roomID = playerid;
-	// 	console.log("Room: " + roomID + " was created");
-	// 	socket.join(roomID);
-	// 	console.log("New player:" + clientNo + ", joined room: " + roomID);
-	// 	serverplayers[playerid] = new Player(playerid); //adding player to list of players
-	// 	serverboards[roomID] = new Board(roomID); //creating new board
-	// 	serverboards[roomID].player1 = serverplayers[playerid]; //adding player to board
-	// });
+	//creating new room
+	socket.on("newroom", function(socket) {
+		roomID = "aaa";
+		console.log("Room: " + roomID + " was created");
+		socc.join(roomID);
+		console.log("New player:" + clientNo + ", joined room: " + roomID);
+		serverplayers[socc.id] = new Player(socc.id); //adding player to list of players
+		serverboards[roomID] = new Board(roomID); //creating new board
+		serverboards[roomID].player1 = serverplayers[socc.id]; //adding player to board
+	});
+	socket.on("joinroom", (socket) => {
+		// listen for incoming data msg on this newly connected socket
+		
+			//wysyłąnie/odbieranie jsona
+			roomName = "aaa";
+			console.log(`data received is '${roomName}'`);
+			roomID = roomName;
+			socc.join(roomID); //()
+			serverplayers[socc.id] = new Player(socc.id); //adding player to list of players
+			serverboards[roomID].player2 = serverplayers[socc.id]; //adding player to board
+			console.log("New player:" + clientNo + ", joined room: " + roomID);
+			serverboards[roomID].startgame();
+			serverboards[roomID].player1.printplayershand(); //prints players hand (just for test)
+			serverboards[roomID].player2.printplayershand(); //prints players hand (just for test)
+			serverboards[roomID].howmanytilesinstorage(); //prints how many tiles are left in storage
+		
+	});
 });
 
 server.on("error", (err) => {
@@ -326,9 +345,9 @@ var Player = /** @class */ (function () {
 			newtile.status = 1; //because it lands in players hand
 			this.playerhand.push(newtile);
 			unusedtilestorage.splice(unusedtilestorage.indexOf(newtile), 1); //remove tile from unusedtilestorage
-			var stand = document.getElementById("stand");
-			var newtilehtml = document.createElement("div"); //generate div for the tile inside tile class
-			newtilehtml.classList.add("tile");
+			// var stand = document.getElementById("stand");
+			// var newtilehtml = document.createElement("div"); //generate div for the tile inside tile class
+			// newtilehtml.classList.add("tile");
 			// serverplayers[socket.id].playerhand[1].type;
 			// serverplayers[socket.id].playerhand[1].value;
 		}
