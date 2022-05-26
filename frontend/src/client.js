@@ -1,17 +1,70 @@
-//show initial screen modal
+
+//show initial screen modal //
 var initialScreen = new bootstrap.Modal(
 	document.getElementById("initialScreen"),
 	{}
 );
 initialScreen.toggle();
 
-// open help modal
+// open help modal //
 var helpModal = new bootstrap.Modal(document.getElementById("helpModal"), {});
 var helpbtn = document.getElementById("help");
 helpbtn.addEventListener("click", () => {
 	helpModal.toggle();
 });
 
+// Draging tiles //
+document.addEventListener("DOMContentLoaded", (event) => {
+	var dragSrcEl = null;
+
+	function handleDragStart(e) {
+		dragSrcEl = this;
+
+		e.dataTransfer.effectAllowed = "move";
+		e.dataTransfer.setData("text/html", this.innerHTML);
+	}
+
+	function handleDragOver(e) {
+		if (e.preventDefault) {
+			e.preventDefault();
+		}
+
+		e.dataTransfer.dropEffect = "move";
+
+		return false;
+	}
+
+	function handleDrop(e) {
+		if (e.stopPropagation) {
+			e.stopPropagation(); // stops the browser from redirecting.
+		}
+
+		if (dragSrcEl != this) {
+			dragSrcEl.innerHTML = this.innerHTML;
+			this.innerHTML = e.dataTransfer.getData("text/html");
+		}
+
+		return false;
+	}
+
+	function handleDragEnd(e) {
+		this.style.opacity = "1";
+
+		items.forEach(function (item) {
+			item.classList.remove("over");
+		});
+	}
+
+	let items = document.querySelectorAll(".dropzone .draggable");
+	items.forEach(function (item) {
+		item.addEventListener("dragstart", handleDragStart, false);
+		item.addEventListener("dragover", handleDragOver, false);
+		item.addEventListener("drop", handleDrop, false);
+		item.addEventListener("dragend", handleDragEnd, false);
+	});
+});
+
+// Chat //
 const log = (text) => {
 	//log to console
 	const parent = document.querySelector("#events");
@@ -34,36 +87,42 @@ const onChatSubmitted = (socket) => (e) => {
 };
 
 (() => {
-	const gameScreen = document.getElementById("gameScreen"); //get gameScreen
-	const bench = document.getElementById("bench"); //get bench TODO: add bench with generated letter for players
-	const scoreBoard = document.getElementById("scoreBoard"); //get score board TODO: add score board with current score and history of words
 	const newGameButton = document.getElementById("newGame"); //get new game button
 	const joinGameButton = document.getElementById("joinGame"); //get join game button
 	const roomName = document.getElementById("roomName"); //get room input
-	const playerName = document.getElementById("playerName"); //get player name input
+	const username = document.getElementById("username"); //get player name input
 	const acceptWord = document.getElementById("acceptWord"); //get accept word button
 	const skip = document.getElementById("skip"); //get skip button
-
-	const { fillCell, reset, getCellPosition } = getBoard(gameScreen); //create board
+	const exit = document.getElementById("exit"); //get exit button
 
 	const socket = io(); //connect to server
 
-	const onClick = (socket) => (e) => {
-		//send turn to server
-		const { x, y } = getClickedPosition(gameScreen, e);
-		socket.emit("turn", getCellPosition(x, y));
-	};
-	socket.on("joinroom")
-	socket.on("board", reset); //kiedy modal i przyciski bedą działać to to wywal
-	// socket.on("bench", resetBench); //kiedy modal i przyciski bedą działać to to wywal
-	socket.on("message", log);
-	socket.on("turn", ({ x, y, color }) => fillCell(x, y, color));
+	socket.on("joinroom");
 
-	document //add event listeners in document
+	socket.on("message", log);
+
+	// joinGameButton.addEventListener("click", () => {
+	// 	socket.emit("joinroom", roomName.value, username.value);
+	// 	console.log("Room: " + roomName.value);
+	// 	console.log("Player: " + username.value);
+	// });
+
+	joinGameButton.addEventListener("click", () => {
+		socket.emit("joinroom", roomName.value, username.value);
+		console.log("Room: " + roomName.value);
+		console.log("Player: " + username.value);
+	});
+
+	newGameButton.addEventListener("click", () => {
+		socket.emit("newroom");
+		console.log("newroom_client");
+	});
+
+	exit.addEventListener("click", () => {
+		socket.disconnect();
+	});
+
+	document //add event listeners for chat
 		.querySelector("#chat-form")
 		.addEventListener("submit", onChatSubmitted(socket));
-
-	// newGameButton.addEventListener("click", reset); //start new game, popraw bo to tylko przekopiowane
-	// joinGameButton.addEventListener("click", joingame); //join existing game, popraw bo to tylko przekopiowane
-	gameScreen.addEventListener("click", onClick(socket));
 })();
