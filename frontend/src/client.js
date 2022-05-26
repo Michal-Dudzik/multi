@@ -1,3 +1,4 @@
+
 //show initial screen modal //
 var initialScreen = new bootstrap.Modal(
 	document.getElementById("initialScreen"),
@@ -113,7 +114,7 @@ const onChatSubmitted = (socket) => (e) => {
 	});
 
 	newGameButton.addEventListener("click", () => {
-		socket.emit("newroom", username.value);
+		socket.emit("newroom");
 		console.log("newroom_client");
 	});
 
@@ -121,7 +122,7 @@ const onChatSubmitted = (socket) => (e) => {
 		socket.disconnect();
 	});
 
-	document //add event listeners in document
+	document //add event listeners for chat
 		.querySelector("#chat-form")
 		.addEventListener("submit", onChatSubmitted(socket));
 })();
