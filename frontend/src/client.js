@@ -108,9 +108,9 @@ const onChatSubmitted = (socket) => (e) => {
 	// });
 
 	joinGameButton.addEventListener("click", () => {
-		socket.emit("joinroom", roomName.value, username.value);
-		console.log("Room: " + roomName.value);
-		console.log("Player: " + username.value);
+		socket.emit("joinroom", roomName, username);
+		console.log("Room: " + roomName);
+		console.log("Player: " + username);
 	});
 
 	newGameButton.addEventListener("click", () => {

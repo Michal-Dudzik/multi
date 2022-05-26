@@ -59,7 +59,7 @@ io.on("connection", (socket) => {
 	socket.on("message", (text) => io.emit("message", text)); //receive message from client and send it to all clients
 	//creating new room
 	socket.on("newroom", function(socket) {
-		roomID = "aaa";
+		roomID = socc.id; // TO DO read room name from html and check if its allready taken
 		console.log("Room: " + roomID + " was created");
 		socc.join(roomID);
 		console.log("New player:" + clientNo + ", joined room: " + roomID);
@@ -71,7 +71,7 @@ io.on("connection", (socket) => {
 		// listen for incoming data msg on this newly connected socket
 		
 			//wysyłąnie/odbieranie jsona
-			roomName = "aaa";
+			roomName = roomID;
 			console.log(`data received is '${roomName}'`);
 			roomID = roomName;
 			socc.join(roomID); //()
