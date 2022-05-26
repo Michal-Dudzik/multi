@@ -14,15 +14,15 @@ var roomID;
 var serverplayers = [];
 var serverboards = [];
 
-io.on("createnewgame", (socket) => {
-	roomID = socket.id;
-	console.log("Room: " + roomID + " was created");
-	socket.join(roomID);
-	console.log("New player:" + clientNo + ", joined room: " + roomID);
-	serverplayers[socket.id] = new Player(socket.id); //adding player to list of players
-	serverboards[roomID] = new Board(roomID); //creating new board
-	serverboards[roomID].player1 = serverplayers[socket.id]; //adding player to board
-});
+// io.on("newroom", function(socket) {
+// 	roomID = socket.id;
+// 	console.log("Room: " + roomID + " was created");
+// 	socket.join(roomID);
+// 	console.log("New player:" + clientNo + ", joined room: " + roomID);
+// 	serverplayers[socket.id] = new Player(socket.id); //adding player to list of players
+// 	serverboards[roomID] = new Board(roomID); //creating new board
+// 	serverboards[roomID].player1 = serverplayers[socket.id]; //adding player to board
+// });
 
 io.on("joinroom", (socket) => {
 	// listen for incoming data msg on this newly connected socket
@@ -50,8 +50,18 @@ io.on("joinroom", (socket) => {
 
 io.on("connection", (socket) => {
 	socket.emit("message", "Welcome to the game!"); //on connection to server send message to client
-
+	playerid = socket.id;
+	console.log("New player:" + socket.id + ", connected to server");	
 	socket.on("message", (text) => io.emit("message", text)); //receive message from client and send it to all clients
+	// socket.on("newroom", function(socket) {
+	// 	roomID = playerid;
+	// 	console.log("Room: " + roomID + " was created");
+	// 	socket.join(roomID);
+	// 	console.log("New player:" + clientNo + ", joined room: " + roomID);
+	// 	serverplayers[playerid] = new Player(playerid); //adding player to list of players
+	// 	serverboards[roomID] = new Board(roomID); //creating new board
+	// 	serverboards[roomID].player1 = serverplayers[playerid]; //adding player to board
+	// });
 });
 
 server.on("error", (err) => {
